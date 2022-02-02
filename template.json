@@ -1067,7 +1067,7 @@
 					"preset":true
 				}
 			],
-			"categories": ["xxc", "net"]
+			"categories": ["webserver"]
 		},
 		{
 			"type": 4,
@@ -1093,7 +1093,7 @@
 					"default": "dc=example,dc=com"
 				}
 			],
-			"categories": ["xxc", "database"]
+			"categories": ["database"]
 		}
 	]
 }
