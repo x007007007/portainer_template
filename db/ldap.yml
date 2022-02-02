@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  openldap:
+    image: docker.io/bitnami/openldap:2.6
+    ports:
+      - '389:389'
+      - '636:636'
+    environment:
+      - LDAP_PORT_NUMBER=389
+      - LDAP_LDAPS_PORT_NUMBER=636
+      - LDAP_ADMIN_USERNAME=${LDAP_ADMIN_USERNAME?not set admin username}
+      - LDAP_ADMIN_PASSWORD=${LDAP_ADMIN_PASSWORD?not set admin password}
+#      - LDAP_USERS=${LDAP_USERS}
+#      - LDAP_PASSWORDS=${LDAP_PASSWORDS}
+      - LDAP_ROOT=${LDAP_ROOT}
+#      - LDAP_ENABLE_TLS=yes
+#      - LDAP_TLS_CERT_FILE=/opt/bitnami/openldap/certs/openldap.crt
+#      - LDAP_TLS_KEY_FILE=/opt/bitnami/openldap/certs/openldap.key
+#      - LDAP_TLS_CA_FILE=/opt/bitnami/openldap/certs/openldapCA.crt
+    volumes:
+      - 'openldap_data:/bitnami/openldap'
+
+  openldap-admin:
+    image: osixia/phpldapadmin:0.9.0
+    environment:
+      - PHPLDAPADMIN_LDAP_HOSTS="openldap"
+
+volumes:
+  openldap_data:
+    driver: local
