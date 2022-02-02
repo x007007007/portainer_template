@@ -1040,15 +1040,60 @@
 			"stackfile":"https://raw.githubusercontent.com/portainer/templates/master/stacks/cockroachdb/edge/docker-stack.yml"
 		},
 		{
-			"type":3,
-			"title":"FDO",
-			"description":"FDO",
-			"platform":"linux",
-			"logo":"https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/intel.png",
-			"repository":{
-				"url":"https://github.com/portainer/templates",
-				"stackfile":"stacks/fdo/docker-stack.yml"
+			"type": 3,
+			"title": "FDO",
+			"description": "FDO",
+			"platform": "linux",
+			"logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/intel.png",
+			"repository": {
+				"url": "https://github.com/portainer/templates",
+				"stackfile": "stacks/fdo/docker-stack.yml"
 			}
+		},
+		{
+			"type": 4,
+			"title": "Traefik",
+			"description": "Traefik 2.6",
+			"platform": "linux",
+			"stackfile":"https://gitee.com/x007007007/portainer_template/raw/main/stack/traefik.yml",
+			"env": [
+				{
+					"name":"TRAEFIK_DOMAIN",
+					"label":"Traefik domain"
+				},
+				{
+					"name":"ENV_PREFIX",
+					"default":"release-",
+					"preset":true
+				}
+			],
+			"categories": ["xxc", "net"]
+		},
+		{
+			"type": 4,
+			"title": "OpenLdap",
+			"description": "Openldap with admin",
+			"platform": "linux",
+			"stackfile":"https://gitee.com/x007007007/portainer_template/raw/main/stack/traefik.yml",
+			"env": [
+				{
+					"name": "LDAP_ADMIN_USERNAME",
+					"label": "admin user name",
+					"default": "admin",
+					"preset": true
+				},
+				{
+					"name": "LDAP_ADMIN_PASSWORD",
+					"label": "admin password",
+					"description": "Password used by the admin user."
+				},
+				{
+					"name": "LDAP_ROOT",
+					"label": "ldap dn root",
+					"default": "dc=example,dc=com"
+				}
+			],
+			"categories": ["xxc", "database"]
 		}
 	]
 }
