@@ -1100,7 +1100,7 @@
 				{
 					"name": "LDAP_ADMIN_USERNAME",
 					"label": "admin user name",
-					"default": "admin",
+					"default": "admin"
 				},
 				{
 					"name": "LDAP_ADMIN_PASSWORD",
@@ -1114,7 +1114,8 @@
 				},
 				{
 					"name": "TRAEFIK_DOMAIN",
-					"label": "traefik domain"
+					"label": "traefik domain",
+					"description": "traefik domain"
 				}
 			],
 			"categories": ["database"],
