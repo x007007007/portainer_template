@@ -1116,6 +1116,10 @@
 				{
 					"name": "TRAEFIK_DOMAIN",
 					"label": "traefik domain"
+				},
+				{
+					"name": "TRAEFIK_DOMAIN",
+					"label": "dmoain name"
 				}
 			],
 			"categories": ["database"],
