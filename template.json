@@ -1051,6 +1051,28 @@
 			}
 		},
 		{
+			"type": 2,
+			"title": "Traefik",
+			"description": "Traefik 2.6",
+			"platform": "linux",
+			"env": [
+				{
+					"name":"TRAEFIK_DOMAIN",
+					"label":"Traefik domain"
+				},
+				{
+					"name":"ENV_PREFIX",
+					"default":"release-",
+					"preset":true
+				}
+			],
+			"categories": ["webserver"],
+			"repository":{
+				"url": "https://gitee.com/x007007007/portainer_template",
+				"stackfile": "stack/traefik.yml"
+			}
+		},
+		{
 			"type": 4,
 			"title": "Traefik",
 			"description": "Traefik 2.6",
@@ -1068,6 +1090,35 @@
 				}
 			],
 			"categories": ["webserver"]
+		},
+		{
+			"type":2,
+			"title":"OpenLdap",
+			"description":"Openldap with admin",
+			"platform": "linux",
+			"env": [
+				{
+					"name": "LDAP_ADMIN_USERNAME",
+					"label": "admin user name",
+					"default": "admin",
+					"preset": true
+				},
+				{
+					"name": "LDAP_ADMIN_PASSWORD",
+					"label": "admin password",
+					"description": "Password used by the admin user."
+				},
+				{
+					"name": "LDAP_ROOT",
+					"label": "ldap dn root",
+					"default": "dc=example,dc=com"
+				}
+			],
+			"categories": ["database"],
+			"repository":{
+				"url":"https://gitee.com/x007007007/portainer_template",
+				"stackfile":"stack/traefik.yml"
+			}
 		},
 		{
 			"type": 4,
