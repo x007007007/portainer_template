@@ -18,11 +18,35 @@ services:
 #      - LDAP_TLS_CA_FILE=/opt/bitnami/openldap/certs/openldapCA.crt
     volumes:
       - 'openldap_data:/bitnami/openldap'
-
+    deploy:
+      restart_policy:
+        delay: 1
+        window: 60s
+      placement:
+        constraints:
+          - node.labels.service-ldap==true
   openldap-admin:
     image: osixia/phpldapadmin:0.9.0
     environment:
       - PHPLDAPADMIN_LDAP_HOSTS="openldap"
+    deploy:
+      restart_policy:
+        delay: 1
+        window: 60s
+      labels:
+        - traefik.enable=true
+        - traefik.constraint-label=traefik-public
+        - traefik.docker.network=traefik-public
+        # standalone host
+        - traefik.http.routers.openldap-http.rule=Host(`openldap-admin.${TRAEFIK_DOMAIN?Variable not set}`)
+        - traefik.http.routers.openldap-http.entrypoints=http
+        - traefik.http.routers.openldap-http.service=minio-nfs
+        - traefik.http.routers.openldap-https.rule=Host(`openldap-admin.${TRAEFIK_DOMAIN?Variable not set}`)
+        - traefik.http.routers.openldap-https.entrypoints=https
+        - traefik.http.routers.openldap-https.tls=true
+        - traefik.http.routers.openldap-https.service=minio-nfs
+        - traefik.http.services.openldap.loadbalancer.server.port=80
+
 
 volumes:
   openldap_data:

@@ -1112,6 +1112,10 @@
 					"name": "LDAP_ROOT",
 					"label": "ldap dn root",
 					"default": "dc=example,dc=com"
+				},
+				{
+					"name": "TRAEFIK_DOMAIN",
+					"label": "traefik domain"
 				}
 			],
 			"categories": ["database"],
