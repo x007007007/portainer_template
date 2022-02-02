@@ -1,5 +1,9 @@
 version: '3.8'
 
+networks:
+  traefik-public:
+    external: true
+
 services:
   openldap:
     image: docker.io/bitnami/openldap:2.6
@@ -40,13 +44,12 @@ services:
         # standalone host
         - traefik.http.routers.openldap-http.rule=Host(`openldap-admin.${TRAEFIK_DOMAIN?Variable not set}`)
         - traefik.http.routers.openldap-http.entrypoints=http
-        - traefik.http.routers.openldap-http.service=minio-nfs
+        - traefik.http.routers.openldap-http.service=openldap
         - traefik.http.routers.openldap-https.rule=Host(`openldap-admin.${TRAEFIK_DOMAIN?Variable not set}`)
         - traefik.http.routers.openldap-https.entrypoints=https
         - traefik.http.routers.openldap-https.tls=true
-        - traefik.http.routers.openldap-https.service=minio-nfs
+        - traefik.http.routers.openldap-https.service=openldap
         - traefik.http.services.openldap.loadbalancer.server.port=80
-
 
 volumes:
   openldap_data:
