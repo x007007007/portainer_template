@@ -1068,7 +1068,7 @@
 			],
 			"categories": ["webserver"],
 			"repository":{
-				"url": "https://gitee.com/x007007007/portainer_template",
+				"url": "https://gitee.com/x007007007/portainer_template.git",
 				"stackfile": "stack/traefik.yml"
 			}
 		},
@@ -1116,7 +1116,7 @@
 			],
 			"categories": ["database"],
 			"repository":{
-				"url":"https://gitee.com/x007007007/portainer_template",
+				"url":"https://gitee.com/x007007007/portainer_template.git",
 				"stackfile":"stack/traefik.yml"
 			}
 		},
