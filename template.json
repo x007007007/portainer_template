@@ -1152,6 +1152,17 @@
 				}
 			],
 			"categories": ["database"]
+		},
+		{
+			"type": 2,
+			"title": "Jupyter",
+			"description": "Jupyter",
+			"platform": "linux",
+			"image": "jupyter/scipy-notebook:lab-3.2.8",
+			"categories": ["webserver"],
+			"ports":[
+				"8889:8888"
+			]
 		}
 	]
 }
