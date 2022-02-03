@@ -1121,7 +1121,7 @@
 			"categories": ["database"],
 			"repository":{
 				"url":"https://gitee.com/x007007007/portainer_template.git",
-				"stackfile":"stack/traefik.yml"
+				"stackfile":"stack/db/ldap.yml"
 			}
 		},
 		{
@@ -1129,7 +1129,7 @@
 			"title": "OpenLdap",
 			"description": "Openldap with admin",
 			"platform": "linux",
-			"stackfile":"https://gitee.com/x007007007/portainer_template/raw/main/stack/traefik.yml",
+			"stackfile":"https://gitee.com/x007007007/portainer_template/raw/main/stack/db/ldap.yml",
 			"env": [
 				{
 					"name": "LDAP_ADMIN_USERNAME",
