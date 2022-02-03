@@ -8,6 +8,7 @@ networks:
 services:
   openldap:
     image: osixia/openldap:1.5.0
+    hostname: openldap
     networks:
       - default
     ports:
@@ -37,7 +38,7 @@ services:
       - traefik-public
       - default
     environment:
-      - PHPLDAPADMIN_LDAP_HOSTS=openldap
+      - PHPLDAPADMIN_LDAP_HOSTS=${PHPLDAPADMIN_LDAP_HOSTS:-openldap}
       - PHPLDAPADMIN_HTTPS=false
     deploy:
       labels:
