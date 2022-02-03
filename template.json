@@ -1108,9 +1108,14 @@
 					"description": "Password used by the admin user."
 				},
 				{
-					"name": "LDAP_ROOT",
-					"label": "ldap dn root",
-					"default": "dc=example,dc=com"
+					"name": "LDAP_ORGANISATION",
+					"label": "LDAP_ORGANISATION",
+					"default": "Example"
+				},
+				{
+					"name": "LDAP_DOMAIN",
+					"label": "LDAP_DOMAIN",
+					"default": "example.com"
 				},
 				{
 					"name": "TRAEFIK_DOMAIN",
@@ -1142,9 +1147,14 @@
 					"description": "Password used by the admin user."
 				},
 				{
-					"name": "LDAP_ROOT",
-					"label": "ldap dn root",
-					"default": "dc=example,dc=com"
+					"name": "LDAP_ORGANISATION",
+					"label": "LDAP_ORGANISATION",
+					"default": "Example"
+				},
+				{
+					"name": "LDAP_DOMAIN",
+					"label": "LDAP_DOMAIN",
+					"default": "example.com"
 				},
 				{
 					"name": "TRAEFIK_DOMAIN",

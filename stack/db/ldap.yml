@@ -7,18 +7,20 @@ networks:
 
 services:
   openldap:
-    image: docker.io/bitnami/openldap:2.6
+    image: osixia/openldap:1.5.0
     networks:
       - default
     ports:
-      - '389:1389'
-      - '636:1636'
+      - '389:389'
+      - '636:636'
     environment:
-      - LDAP_ADMIN_USERNAME=${LDAP_ADMIN_USERNAME?not set admin username}
+      - LDAP_ORGANISATION=${LDAP_ORGANISATION?LDAP_ORGANISATION not set}
+      - LDAP_DOMAIN=${LDAP_DOMAIN? LDAP_DOMAIN not set}
+#      - LDAP_ADMIN_USERNAME=${LDAP_ADMIN_USERNAME?not set admin username}
       - LDAP_ADMIN_PASSWORD=${LDAP_ADMIN_PASSWORD?not set admin password}
 #      - LDAP_USERS=${LDAP_USERS}
 #      - LDAP_PASSWORDS=${LDAP_PASSWORDS}
-      - LDAP_ROOT=${LDAP_ROOT}
+#      - LDAP_ROOT=${LDAP_ROOT}
 #      - LDAP_ENABLE_TLS=yes
 #      - LDAP_TLS_CERT_FILE=/opt/bitnami/openldap/certs/openldap.crt
 #      - LDAP_TLS_KEY_FILE=/opt/bitnami/openldap/certs/openldap.key
@@ -35,7 +37,7 @@ services:
       - traefik-public
       - default
     environment:
-      - PHPLDAPADMIN_LDAP_HOSTS="openldap"
+      - PHPLDAPADMIN_LDAP_HOSTS=openldap
       - PHPLDAPADMIN_HTTPS=false
     deploy:
       labels:
