@@ -50,7 +50,7 @@ services:
         - traefik.http.routers.openldap-https.entrypoints=https
         - traefik.http.routers.openldap-https.tls=true
         - traefik.http.routers.openldap-https.service=openldap
-        - traefik.http.routers.openldap-export.rule=Host(`openldap-admin.${TRAEFIK_DOMAIN?Variable not set}:18443`)
+        - traefik.http.routers.openldap-export.rule=Host(`openldap-admin.${TRAEFIK_DOMAIN?Variable not set}`)
         - traefik.http.routers.openldap-export.entrypoints=export
         - traefik.http.routers.openldap-export.tls=true
         - traefik.http.routers.openldap-export.service=openldap
