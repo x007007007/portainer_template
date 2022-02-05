@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  bind:
+    image: sameersbn/bind:9.16.1-20200524
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+      - "10000:10000/tcp"
+    volumes:
+      - dns_bind:/data
+    deploy:
+      placement:
+        constraints:
+          - node.labels.service-dns==true
+      labels:
+        - traefik.enable=true
+        - traefik.constraint-label=traefik-public
+        - traefik.docker.network=traefik-public
+        # standalone host
+        - traefik.http.routers.webmindnsbind-https.rule=Host(`dns-admin.${TRAEFIK_DOMAIN?Variable not set}`)
+        - traefik.http.routers.webmindnsbind-https.entrypoints=https
+        - traefik.http.routers.webmindnsbind-https.tls=true
+        - traefik.http.routers.webmindnsbind-https.service=webmindnsbind
+        - traefik.http.routers.webmindnsbind-export.rule=Host(`dns-admin.${TRAEFIK_DOMAIN?Variable not set}`)
+        - traefik.http.routers.webmindnsbind-export.entrypoints=export
+        - traefik.http.routers.webmindnsbind-export.tls=true
+        - traefik.http.routers.webmindnsbind-export.service=webmindnsbind
+        - traefik.http.services.webmindnsbind.loadbalancer.server.port=80
+        - traefik.http.services.webmindnsbind.loadbalancer.server.scheme=http
+        - traefik.http.services.webmindnsbind.loadbalancer.passhostheader=true
+    
+volumes:
+  dns_bind:
+    name: ${ENV_PREFIX}dns_bind
+  

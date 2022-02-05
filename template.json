@@ -3,6 +3,28 @@
 	"templates":[
 		{
 			"type": 2,
+			"title": "DnsServer",
+			"description": "use 53 port",
+			"platform": "linux",
+			"env": [
+				{
+					"name":"TRAEFIK_DOMAIN",
+					"label":"Traefik domain"
+				},
+				{
+					"name":"ENV_PREFIX",
+					"default":"release-",
+					"preset":true
+				}
+			],
+			"categories": ["webserver", "ops"],
+			"repository":{
+				"url": "https://gitee.com/x007007007/portainer_template.git",
+				"stackfile": "stack/service/dns.yml"
+			}
+		},
+		{
+			"type": 2,
 			"title": "Traefik",
 			"description": "Traefik 2.6",
 			"platform": "linux",
@@ -79,40 +101,6 @@
 				"url":"https://gitee.com/x007007007/portainer_template.git",
 				"stackfile":"stack/db/ldap.yml"
 			}
-		},
-		{
-			"type": 4,
-			"title": "OpenLdap",
-			"description": "Openldap with admin",
-			"platform": "linux",
-			"stackfile":"https://gitee.com/x007007007/portainer_template/raw/main/stack/db/ldap.yml",
-			"env": [
-				{
-					"name": "LDAP_ADMIN_USERNAME",
-					"label": "admin user name",
-					"default": "admin"
-				},
-				{
-					"name": "LDAP_ADMIN_PASSWORD",
-					"label": "admin password",
-					"description": "Password used by the admin user."
-				},
-				{
-					"name": "LDAP_ORGANISATION",
-					"label": "LDAP_ORGANISATION",
-					"default": "Example"
-				},
-				{
-					"name": "LDAP_DOMAIN",
-					"label": "LDAP_DOMAIN",
-					"default": "example.com"
-				},
-				{
-					"name": "TRAEFIK_DOMAIN",
-					"label": "dmoain name"
-				}
-			],
-			"categories": ["database"]
 		},
 		{
 			"type": 2,
