@@ -6,7 +6,9 @@ services:
     ports:
       - "53:53/udp"
       - "53:53/tcp"
-      - "10000:10000/tcp"
+    environment:
+      - WEBMIN_INIT_SSL_ENABLED=false
+      - WEBMIN_INIT_REDIRECT_PORT=443
     volumes:
       - dns_bind:/data
     deploy:
