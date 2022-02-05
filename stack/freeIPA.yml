@@ -1,0 +1,59 @@
+version: '2.4'
+
+services:
+  smtp:
+    image: "mailhog/mailhog:v1.0.0"
+    networks:
+      - default
+
+  freeipa:
+    hostname: ipa.home.x007007007.info
+    ports:
+      - "80:80"
+      - "443:443"
+      - "389:389"
+    image: freeipa/freeipa-server:rocky-8-4.9.6
+    privileged: true
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+    environment:
+      - PASSWORD=admin123
+    command:
+      - ipa-server-install
+      - -r
+      - HOME.X007007007.INFO
+      - --no-ntp
+      - --setup-dns
+      - --realm=HOME.X007007007.INFO
+      - --ds-password=admin123
+      - --admin-password=admin123
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+      - "${PWD}/data:/data"
+    networks:
+      - traefik-public
+      - default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.constraint-label=traefik-public"
+      - "traefik.docker.network=traefik-public"
+      # "standalone host"
+      - "traefik.http.routers.freefpa-https.rule=Host(`fpa.${TRAEFIK_DOMAIN?Variable not set}`)"
+      - "traefik.http.routers.freefpa-https.entrypoints=https"
+      - "traefik.http.routers.freefpa-https.tls=true"
+      - "traefik.http.routers.freefpa-https.service=freefpa"
+      - "traefik.http.routers.freefpa-export.rule=Host(`fpa.${TRAEFIK_DOMAIN?Variable not set}`)"
+      - "traefik.http.routers.freefpa-export.entrypoints=export"
+      - "traefik.http.routers.freefpa-export.tls=true"
+      - "traefik.http.routers.freefpa-export.service=freefpa"
+      - "traefik.http.services.freefpa.loadbalancer.server.port=80"
+      - "traefik.http.services.freefpa.loadbalancer.server.scheme=http"
+      - "traefik.http.services.freefpa.loadbalancer.passhostheader=true"
+
+volumes:
+  freeipa_data:
+
+networks:
+  default:
+  traefik-public:
+    external: true

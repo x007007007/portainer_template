@@ -2,6 +2,28 @@
 	"version":"2",
 	"templates":[
 		{
+			"type": 3,
+			"title": "freeIPA",
+			"description": "test",
+			"platform": "linux",
+			"env": [
+				{
+					"name":"TRAEFIK_DOMAIN",
+					"label":"Traefik domain"
+				},
+				{
+					"name":"ENV_PREFIX",
+					"default":"release-",
+					"preset":true
+				}
+			],
+			"categories": ["webserver"],
+			"repository":{
+				"url": "https://gitee.com/x007007007/portainer_template.git",
+				"stackfile": "stack/freeIPA.yml"
+			}
+		},
+		{
 			"type": 2,
 			"title": "DnsServer",
 			"description": "use 53 port",
