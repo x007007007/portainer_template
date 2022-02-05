@@ -10,6 +10,7 @@ volumes:
 services:
   bind:
     image: sameersbn/bind:9.16.1-20200524
+    hostname: dns-admin.${TRAEFIK_DOMAIN?Variable not set}
     networks:
       - traefik-public
     ports:
@@ -38,7 +39,7 @@ services:
         - traefik.http.routers.webmindnsbind-export.tls=true
         - traefik.http.routers.webmindnsbind-export.service=webmindnsbind
         - traefik.http.services.webmindnsbind.loadbalancer.server.port=10000
-        - traefik.http.services.webmindnsbind.loadbalancer.server.scheme=https
+        - traefik.http.services.webmindnsbind.loadbalancer.server.scheme=http
         - traefik.http.services.webmindnsbind.loadbalancer.passhostheader=true
     
 
