@@ -25,6 +25,13 @@ volumes:
       type: "none"
       o: "bind"
       device: "${NEXT_CLOUD_PATH}/nextconfig"
+  mysqldata:
+    driver: "local"
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "${NEXT_CLOUD_PATH}/mysqldata"
+
 
 networks:
   traefik-public:
@@ -39,6 +46,12 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=root
       - MYSQL_ROOT_PASSWORD=nextcloud
+    volumes:
+      - mysqldata:/var/lib/mysql
+    deploy:
+      placement:
+        constraints:
+          - node.labels.service-nextcloud == true
 
   nextcloud:
     image: nextcloud:latest
