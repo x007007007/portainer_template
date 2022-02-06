@@ -2,14 +2,18 @@
 	"version":"2",
 	"templates":[
 		{
-			"type": 3,
-			"title": "freeIPA",
-			"description": "test",
+			"type": 2,
+			"title": "nextcloud",
+			"description": "nextcloud",
 			"platform": "linux",
 			"env": [
 				{
 					"name":"TRAEFIK_DOMAIN",
 					"label":"Traefik domain"
+				},
+				{
+					"name":"NEXT_CLOUD_PATH",
+					"label":"NEXT_CLOUD_PATH"
 				},
 				{
 					"name":"ENV_PREFIX",
@@ -20,7 +24,7 @@
 			"categories": ["webserver"],
 			"repository":{
 				"url": "https://gitee.com/x007007007/portainer_template.git",
-				"stackfile": "stack/freeIPA.yml"
+				"stackfile": "stack/service/nextcloud.yml"
 			}
 		},
 		{
