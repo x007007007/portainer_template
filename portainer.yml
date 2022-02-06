@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.8'
 
 services:
   agent:
@@ -22,18 +22,40 @@ services:
       - "8000:8000"
     volumes:
       - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - agent_network
+      - traefik-public
     deploy:
       mode: replicated
       replicas: 1
       placement:
-        constraints: [node.role == manager]
-
+        constraints:
+          - node.role == manager
+          - node.labels.service-protainer == true
+      labels:
+        - traefik.enable=true
+        - traefik.constraint-label=traefik-public
+        - traefik.docker.network=traefik-public
+        # standalone host
+        - traefik.http.routers.portainer-https.rule=Host(`dns-admin.${TRAEFIK_DOMAIN?Variable not set}`)
+        - traefik.http.routers.portainer-https.entrypoints=https
+        - traefik.http.routers.portainer-https.tls=true
+        - traefik.http.routers.portainer-https.service=portainer
+        - traefik.http.routers.portainer-export.rule=Host(`dns-admin.${TRAEFIK_DOMAIN?Variable not set}`)
+        - traefik.http.routers.portainer-export.entrypoints=export
+        - traefik.http.routers.portainer-export.tls=true
+        - traefik.http.routers.portainer-export.service=portainer
+        - traefik.http.services.portainer.loadbalancer.server.port=9443
+        - traefik.http.services.portainer.loadbalancer.server.scheme=http
+        - traefik.http.services.portainer.loadbalancer.passhostheader=true
 networks:
   agent_network:
     driver: overlay
     attachable: true
+  traefik-public:
+    external: true
 
 volumes:
   portainer_data:
+    name: portainer_portainer_data

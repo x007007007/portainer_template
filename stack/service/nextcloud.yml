@@ -1,0 +1,76 @@
+version: "3.8"
+
+volumes:
+  nextcloud:
+    driver: "local"
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "${NEXT_CLOUD_PATH}/nextcloud"
+  nextapps:
+    driver: "local"
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "${NEXT_CLOUD_PATH}/nextapps"
+  nextdata:
+    driver: "local"
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "${NEXT_CLOUD_PATH}/nextdata"
+  nextconfig:
+    driver: "local"
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "${NEXT_CLOUD_PATH}/nextconfig"
+
+networks:
+  traefik-public:
+    external: true
+
+
+services:
+  maindb:
+    image: mysql:8.0.28
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=nextcloud
+
+  nextcloud:
+    image: nextcloud:latest
+    depends_on:
+      - maindb
+    environment:
+      - MYSQL_HOST=maindb:3306
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=nextcloud
+    volumes:
+      - nextcloud:/var/www/html
+      - nextapps:/var/www/html/custom_apps
+      - nextdata:/var/www/html/data
+      - nextconfig:/var/www/html/config
+    networks:
+      - traefik-public
+    deploy:
+      placement:
+        constraints:
+          - node.labels.service-nextcloud == true
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=proxy"
+        - "traefik.http.routers.nextcloud.rule=Host(`next.${TRAEFIK_DOMAIN?Variable not set}`)"
+        - "traefik.http.routers.nextcloud.tls=true"
+        - "traefik.http.routers.nextcloud.tls.certresolver=default"
+        - "traefik.http.routers.nextcloud.entrypoints=nextcloud"
+        - "traefik.http.services.nextcloud.loadbalancer.server.port=80"
