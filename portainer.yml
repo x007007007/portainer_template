@@ -32,7 +32,7 @@ services:
       placement:
         constraints:
           - node.role == manager
-          - node.labels.service-protainer == true
+          - node.labels.service-portainer == true
       labels:
         - traefik.enable=true
         - traefik.constraint-label=traefik-public
