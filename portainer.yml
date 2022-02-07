@@ -38,11 +38,14 @@ services:
         - traefik.constraint-label=traefik-public
         - traefik.docker.network=traefik-public
         # standalone host
-        - traefik.http.routers.portainer-https.rule=Host(`dns-admin.${TRAEFIK_DOMAIN?Variable not set}`)
+        - traefik.http.routers.portainer-http.rule=Host(`portainer.${TRAEFIK_DOMAIN?Variable not set}`)
+        - traefik.http.routers.portainer-http.entrypoints=http
+        - traefik.http.routers.portainer-http.middlewares=https-redirect
+        - traefik.http.routers.portainer-https.rule=Host(`protainer.${TRAEFIK_DOMAIN?Variable not set}`)
         - traefik.http.routers.portainer-https.entrypoints=https
         - traefik.http.routers.portainer-https.tls=true
         - traefik.http.routers.portainer-https.service=portainer
-        - traefik.http.routers.portainer-export.rule=Host(`dns-admin.${TRAEFIK_DOMAIN?Variable not set}`)
+        - traefik.http.routers.portainer-export.rule=Host(`portainer.${TRAEFIK_DOMAIN?Variable not set}`)
         - traefik.http.routers.portainer-export.entrypoints=export
         - traefik.http.routers.portainer-export.tls=true
         - traefik.http.routers.portainer-export.service=portainer

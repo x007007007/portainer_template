@@ -46,6 +46,9 @@ services:
         - traefik.constraint-label=traefik-public
         - traefik.docker.network=traefik-public
         # standalone host
+        - traefik.http.routers.openldap-http.rule=Host(`openldap-admin.${TRAEFIK_DOMAIN?Variable not set}`)
+        - traefik.http.routers.openldap-http.entrypoints=http
+        - traefik.http.routers.openldap-http.middlewares=https-redirect
         - traefik.http.routers.openldap-https.rule=Host(`openldap-admin.${TRAEFIK_DOMAIN?Variable not set}`)
         - traefik.http.routers.openldap-https.entrypoints=https
         - traefik.http.routers.openldap-https.tls=true
